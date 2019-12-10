@@ -37,11 +37,20 @@
 #include <stddef.h>
 
 #include "unittest.h"
+#include "page_size.h"
+#include "util.h"
 
 #define LAYOUT_NAME "heap_state"
 #define ROOT_SIZE 256
 #define ALLOCS 100
 #define ALLOC_SIZE 50
+
+#if PMEM_PAGESIZE > 4096
+#define OID_SHIFT(oid) (oid - (PMEM_PAGESIZE * 2) + (4096 * 2) \
+	- ((unsigned long)CACHELINE_SIZE) + 64)
+#else
+#define OID_SHIFT(oid) (oid)
+#endif
 
 static char buf[ALLOC_SIZE];
 
@@ -84,7 +93,7 @@ main(int argc, char *argv[])
 		PMEMoid oid;
 		pmemobj_alloc(pop, &oid, ALLOC_SIZE, 0,
 				test_constructor, NULL);
-		UT_OUT("%d %lu", i, oid.off);
+		UT_OUT("%d %lu", i, OID_SHIFT(oid.off));
 	}
 
 	pmemobj_close(pop);
