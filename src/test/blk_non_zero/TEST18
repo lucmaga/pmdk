@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright 2015-2019, Intel Corporation
+# Copyright 2019, IBM Corporation
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -32,7 +32,7 @@
 #
 
 #
-# src/test/blk_non_zero/TEST7 -- unit test for
+# src/test/blk_non_zero/TEST14 -- unit test for
 # pmemblk_read/write/set_zero/set_error
 #
 
@@ -42,7 +42,7 @@ require_test_type medium
 
 # doesn't make sense to run in local directory
 require_fs_type pmem non-pmem
-exclude_ppc64
+require_ppc64
 
 setup
 
