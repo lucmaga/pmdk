@@ -19,6 +19,15 @@ if [ "$SRC_CHECKERS" != "0" ]; then
 	make -j$(nproc) cstyle
 fi
 
+echo -e "=========== Uptime \n"
+uptime
+echo -e "=========== Nproc \n"
+nproc
+echo -e "=========== Number of Processes \n "
+ps -AL --no-headers | wc -l
+echo -e "=========== Memory \n"
+free
+
 make -j$(nproc)
 make -j$(nproc) test
 # do not change -j2 to -j$(nproc) in case of tests (make check/pycheck)
